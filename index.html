@@ -1872,39 +1872,25 @@ function playClick() {
     o.start(); o.stop(audioCtx.currentTime + 0.08);
   } catch(e) {}
 }
-let bgmNodes = [];
-function playBgm() {
+let bgmAudio = null;
+function playBgm(src) {
   if (!soundOn) return;
-  if (bgmNodes.length) return;
   try {
-    initAudio();
-    const notes = [262, 294, 330, 349, 392, 349, 330, 294];
-    let noteIdx = 0;
-    function playNote() {
-      if (!soundOn) { stopBgm(); return; }
-      const o = audioCtx.createOscillator(), g = audioCtx.createGain();
-      o.connect(g); g.connect(audioCtx.destination);
-      o.type = 'sine';
-      o.frequency.value = notes[noteIdx % notes.length];
-      g.gain.setValueAtTime(bgmVol * 0.08, audioCtx.currentTime);
-      g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.0);
-      o.start(); o.stop(audioCtx.currentTime + 1.0);
-      bgmNodes.push(o);
-      noteIdx++;
-      bgmTimer = setTimeout(playNote, 1200);
-    }
-    bgmTimer = null;
-    playNote();
+    if (bgmAudio && !bgmAudio.paused) return;
+    if (bgmAudio) { bgmAudio.pause(); bgmAudio = null; }
+    bgmAudio = new Audio(src || "It's a HORI style!.mp3");
+    bgmAudio.loop = true;
+    bgmAudio.volume = bgmVol;
+    bgmAudio.play().catch(function(){});
   } catch(e) {}
 }
 function stopBgm() {
-  if (bgmTimer) { clearTimeout(bgmTimer); bgmTimer = null; }
-  bgmNodes = [];
+  if (bgmAudio) { bgmAudio.pause(); bgmAudio.currentTime = 0; bgmAudio = null; }
 }
 function toggleSound() {
   soundOn = !soundOn;
   document.getElementById('sound-toggle').textContent = soundOn ? '🔊' : '🔇';
-  if (soundOn) { playClick(); playBgm(); }
+  if (soundOn) { playBgm(); }
   else { stopBgm(); }
 }
 
@@ -2439,6 +2425,7 @@ function applyBgmVol() {
   const v = parseInt(document.getElementById('slider-bgm-vol').value);
   bgmVol = v / 100;
   document.getElementById('val-bgm-vol').textContent = v;
+  if (bgmAudio) bgmAudio.volume = bgmVol;
 }
 function applySfxVol() {
   const v = parseInt(document.getElementById('slider-sfx-vol').value);
