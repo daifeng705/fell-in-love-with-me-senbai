@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>表面高冷实际傲娇的艺联领队想和我谈恋爱</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+QingKe+HuangYou&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&family=Klee+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- ======================== NEW TITLE SCREEN ======================== -->
+<div id="title-screen" class="ts-container">
+  <!-- Background layers -->
+  <div class="ts-bg-pattern"></div>
+  <div class="ts-school"></div>
+  <div class="ts-vignette"></div>
+  <span class="ts-rose-vine">🌹</span>
+  <span class="ts-rose-vine">🌹</span>
+  <span class="ts-rose-vine">🌹</span>
+
+  <div class="ts-foreground">
+    <!-- Character illustration -->
+    <div class="ts-char"><img src="初始立绘.png" alt=""></div>
+
+    <!-- Floating petals -->
+    <span class="ts-petal">🌸</span>
+    <span class="ts-petal">🌸</span>
+    <span class="ts-petal">🌸</span>
+    <span class="ts-petal">🌸</span>
+    <span class="ts-petal">🌸</span>
+    <span class="ts-petal">🌸</span>
+    <span class="ts-petal">🌸</span>
+    <span class="ts-petal">🌸</span>
+
+    <!-- Sparkle particles -->
+    <span class="ts-sparkle"></span>
+    <span class="ts-sparkle"></span>
+    <span class="ts-sparkle"></span>
+    <span class="ts-sparkle"></span>
+    <span class="ts-sparkle"></span>
+    <span class="ts-sparkle"></span>
+
+    <!-- Ornate menu panel -->
+    <div class="ts-panel-wrap">
+      <div class="ts-panel-outer">
+        <!-- Border ornaments (pearls) -->
+        <span class="ts-ornament"></span>
+        <span class="ts-ornament"></span>
+        <span class="ts-ornament"></span>
+        <span class="ts-ornament"></span>
+        <!-- Diagonal ornaments -->
+        <span class="ts-ornament-d"></span>
+        <span class="ts-ornament-d"></span>
+        <span class="ts-ornament-d"></span>
+        <span class="ts-ornament-d"></span>
+        <!-- Spire decorations -->
+        <span class="ts-spire ts-spire-t"></span>
+        <span class="ts-spire ts-spire-b"></span>
+        <span class="ts-spire ts-spire-l"></span>
+        <span class="ts-spire ts-spire-r"></span>
+        <span class="ts-spire ts-spire-tl"></span>
+        <span class="ts-spire ts-spire-tr"></span>
+        <span class="ts-spire ts-spire-bl"></span>
+        <span class="ts-spire ts-spire-br"></span>
+
+        <div class="ts-panel">
+          <span class="ts-panel-flower">✿</span>
+          <span class="ts-panel-flower">❀</span>
+          <span class="ts-panel-flower">✿</span>
+          <span class="ts-panel-flower">❀</span>
+
+          <div class="ts-title">
+            表面高冷实际傲娇的<br>艺联领队想和我谈恋爱
+            <span class="jp-sub">ツンデレ芸連リーダーは私と恋がしたい</span>
+          </div>
+
+          <div class="ts-menu">
+            <button class="ts-menu-btn ts-pointer" onclick="startNewGame()">开始新游戏</button>
+            <button class="ts-menu-btn ts-pointer" onclick="continueGame()">继续游戏</button>
+            <button class="ts-menu-btn ts-pointer" onclick="openLoadFromTitle()">读取存档</button>
+            <button class="ts-menu-btn ts-pointer" onclick="openGalleryFromTitle()">CG回想画廊</button>
+            <button class="ts-menu-btn ts-pointer" onclick="openSettings()">设定</button>
+            <button class="ts-menu-btn ts-pointer" onclick="quitGame()">退出游戏</button>
+          </div>
+          <div class="ts-hint">♪ 点击任意处开始播放背景音乐</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="ts-settings" class="ts-modal hidden">
+  <span class="ts-modal-sparkle"></span>
+  <span class="ts-modal-sparkle"></span>
+  <span class="ts-modal-sparkle"></span>
+  <span class="ts-modal-sparkle"></span>
+  <div class="ts-modal-box">
+    <span class="ts-mf">✿</span>
+    <span class="ts-mf">❀</span>
+    <span class="ts-mf">✿</span>
+    <span class="ts-mf">❀</span>
+    <button class="ts-modal-close" onclick="closeSettings()">✕</button>
+    <div class="ts-modal-title">设 定</div>
+
+    <!-- Module 1: Text -->
+    <div class="ts-module">
+      <h3>【 文本设置 】</h3>
+      <div class="ts-slider-row">
+        <span class="ts-slider-label">文字速度</span>
+        <input type="range" class="ts-range" id="ts-text-speed" min="1" max="10" value="5" oninput="applyTextSpeed()">
+      </div>
+      <div class="ts-slider-row">
+        <span class="ts-slider-label">自动速度</span>
+        <input type="range" class="ts-range" min="1" max="10" value="5">
+      </div>
+    </div>
+
+    <!-- Module 2: Audio -->
+    <div class="ts-module">
+      <h3>【 音量设置 】</h3>
+      <div class="ts-slider-row">
+        <span class="ts-slider-label">BGM</span>
+        <input type="range" class="ts-range" id="ts-bgm" min="0" max="100" value="70" oninput="applyBgmVolume()">
+      </div>
+      <div class="ts-slider-row">
+        <span class="ts-slider-label">音效</span>
+        <input type="range" class="ts-range" id="ts-sfx" min="0" max="100" value="70" oninput="applySfxVolume()">
+      </div>
+      <div class="ts-slider-row">
+        <span class="ts-slider-label">语音</span>
+        <input type="range" class="ts-range" min="0" max="100" value="80">
+      </div>
+    </div>
+
+    <!-- Module 3: Display -->
+    <div class="ts-module">
+      <h3>【 画面设置 】</h3>
+      <div class="ts-slider-row">
+        <span class="ts-slider-label">亮度</span>
+        <input type="range" class="ts-range" id="ts-brightness" min="0" max="100" value="75" oninput="applyBrightness()">
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="ts-modal-btns">
+      <button class="ts-modal-btn ts-modal-btn-primary" onclick="saveSettings()">保存设置</button>
+      <button class="ts-modal-btn ts-modal-btn-secondary" onclick="closeSettings()">返回主菜单</button>
+    </div>
+  </div>
+</div>
+<!-- ======================== END TITLE SCREEN ======================== -->
+
+<!-- Navbar -->
+<nav id="navbar">
+  <button id="nav-toggle" onclick="toggleSidebar()">☰</button>
+  <span class="nav-title">🎀 表面高冷实际傲娇的艺联领队想和我谈恋爱</span>
+</nav>
+
+<!-- Main -->
+<div id="main">
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <h3>🌸 数值面板</h3>
+    <div class="stat-item">
+      <div class="stat-label"><span>🥥 椰子饭好感度</span><span class="stat-val" id="affection-val">0</span></div>
+      <div class="progress-wrap"><div class="progress-bar progress-pink" id="affection-bar" style="width:0%"></div></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label"><span>📖 椰子饭了解度</span><span class="stat-val" id="know-val">0</span></div>
+      <div class="progress-wrap"><div class="progress-bar progress-light" id="know-bar" style="width:0%"></div></div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label"><span>😺 猫猫坟互动</span></div>
+      <div class="stat-count" id="cat-count">0</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-label"><span>🏷️ 初见印象</span></div>
+      <div class="tag-area" id="tag-area"><span class="tag" style="background:#ccc;color:#999;">待解锁</span></div>
+    </div>
+    <div class="stat-item" style="margin-top:8px;">
+      <div class="stat-label"><span>📌 当前阶段</span></div>
+      <div style="font-size:13px;color:var(--text-light);text-align:center;" id="stage-label">初识·玻璃门后的利刃</div>
+    </div>
+  </aside>
+
+  <div id="sidebar-backdrop" onclick="toggleSidebar()"></div>
+  <!-- Game Area -->
+  <div id="game-area">
+    <div id="scene-area">
+      <div id="bg-canvas" style="background-image:url('背景.png')"></div>
+      <div id="sprite-box">
+        <img id="sprite-img" src="初始立绘.png" alt="椰子饭">
+      </div>
+      <div id="text-box" onclick="textBoxClick()">
+        <div id="speaker-name"></div>
+        <div id="text-content">
+          <span id="text-display"></span><span id="text-cursor"></span>
+        </div>
+        <div id="click-hint">▼ 点击继续</div>
+      </div>
+    </div>
+    <div id="options-area">
+      <div id="options-container"></div>
+      <div id="cat-prompt-area" class="cat-prompt hidden"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Buttons -->
+<div id="float-btns">
+  <button class="float-btn" onclick="openModal('save')" title="存档">💾</button>
+  <button class="float-btn" onclick="openModal('load')" title="读档">📂</button>
+  <button class="float-btn" onclick="openModal('review')" title="回顾">📜</button>
+  <button class="float-btn" onclick="openModal('gallery')" title="图鉴">🖼️</button>
+  <button class="float-btn" onclick="resetGame()" title="重开">🔄</button>
+</div>
+<button id="sound-toggle" onclick="toggleSound()" title="音效">🔊</button>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modal-save"><div class="modal-box">
+  <h2>💾 存档</h2>
+  <div class="slot-grid" id="save-slots"></div>
+  <button class="modal-close" onclick="closeModal('save')">关闭</button>
+</div></div>
+
+<div class="modal-overlay" id="modal-load"><div class="modal-box">
+  <h2>📂 读档</h2>
+  <div class="slot-grid" id="load-slots"></div>
+  <button class="modal-close" onclick="closeModal('load')">关闭</button>
+</div></div>
+
+<div class="modal-overlay" id="modal-gallery"><div class="modal-box">
+  <h2>🖼️ 结局图鉴</h2>
+  <div class="gallery-grid" id="gallery-grid"></div>
+  <button class="modal-close" onclick="closeModal('gallery')">关闭</button>
+</div></div>
+
+<div class="modal-overlay" id="modal-review"><div class="modal-box">
+  <h2>📜 回顾记录</h2>
+  <div class="review-list" id="review-list"></div>
+  <button class="modal-close" onclick="closeModal('review')">关闭</button>
+</div></div>
+
+<!-- Toast -->
+<div class="toast-overlay hidden" id="toast"><div class="toast-box" id="toast-inner"></div></div>
+
+<!-- Stage Intro -->
+<div class="stage-intro hidden" id="stage-intro"><div class="si-box">
+  <div class="si-game-title">🎀 表面高冷实际傲娇的艺联领队想和我谈恋爱</div>
+  <div class="si-stage" id="si-stage">第 X 阶段</div>
+  <div class="si-title" id="si-title">标题</div>
+  <button class="si-btn" onclick="startStage()">开始</button>
+</div></div>
+
+<script src="script.js"></script>
+</body>
+</html>
