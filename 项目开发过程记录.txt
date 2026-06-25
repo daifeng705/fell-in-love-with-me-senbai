@@ -1,0 +1,267 @@
+项目开发过程记录
+==================
+《表面高冷实际傲娇的艺联领队想和我谈恋爱》
+校园二次元文字互动网页游戏
+
+记录时间：2026年6月25日
+开发工具：OpenCode (CLI)
+开发模式：AI 全流程辅助（AI 图像生成 + AI 文案创作 + AI 代码开发）
+
+---
+
+一、项目概述
+-----------
+
+本项目是一款校园二次元文字互动选择类游戏，以高校艺术联队辩论队为故事背景，
+打造双数值养成（好感度、了解度）、多分支剧情、六阶段递进、四结局解锁的轻量化互动体验。
+使用原生 HTML + CSS + JavaScript 开发，部署为可直接运行的网页。
+
+二、项目文件结构
+---------------
+
+项目根目录 D:\homework\计算机思维作业\zpy\
+
+  核心源代码：
+    index.html           — HTML 结构与布局（标题画面 + 游戏 UI）
+    style.css            — 全部样式与动画（标题画面、设置模态框、响应式布局）
+    script.js            — 全部游戏逻辑（状态管理、对话渲染、数值计算、结局判定、存档系统）
+
+  游戏素材：
+    初始立绘.png         — 角色主立绘（标题画面右侧 + 对话期间）
+    害羞.png             — 角色表情差分（害羞）
+    扶眼镜.png           — 角色表情差分（扶眼镜）
+    背景.png             — 场景背景
+    It's a HORI style!.mp3  — 标题画面背景音乐
+    本日は晴天なり.mp3      — 游戏内背景音乐
+
+  文档：
+    README.md            — GitHub 项目说明文档
+    项目开发过程记录.txt   — 本文档
+    《表面高冷实际傲娇的艺联领队想和我谈恋爱》文字互动游戏项目说明文档.docx — 原始项目需求文档
+
+  其他：
+    .gitignore           — Git 忽略规则
+    _docx_text.txt       — 从 docx 提取的文本缓存
+
+三、版本控制
+-----------
+
+仓库地址：https://github.com/daifeng705/fell-in-love-with-me-senbai
+提交记录：
+  Commit 1 (7845b3c) — Initial commit: Japanese school otome game with title screen,
+                        dialogue, gallery, settings, audio, save/load
+  Commit 2 (7dd2f50) — Add README.md with project overview
+
+认证方式：SSH (ed25519 密钥)
+
+四、开发过程详记
+---------------
+
+【阶段一：标题画面设计与实现】
+
+目标：设计一个日系乙女游戏风格的标题画面，替换原有的简单布局。
+
+需求要点：
+  - 粉色调 (pink macaron soft tones, dreamy glow)
+  - 左侧圆形菜单面板 (~500px)，右侧角色立绘 (25% 透明度)
+  - 背景：远距离模糊白色线稿学校建筑 + 玫瑰藤蔓
+  - 浮动效果：樱花花瓣 (8 个元素不断飘落)、星光粒子 (6 个元素闪烁)
+  - 菜单面板：径向桃粉渐变 + 多环 box-shadow 边框 + 8 颗珍珠装饰 +
+    4 个尖顶角饰 + 8 个对角装饰
+  - 面板内部：顶部大号发光艺术风格标题 (Noto Serif SC 字体) + 日文副标题；
+    下方 6 个纵向堆叠的菜单按钮（serif 字体，深棕色文字，桃粉渐变背景）
+  - 菜单选项：开始新游戏、继续游戏、读取存档、CG回想画廊、设定、退出游戏
+  - 所有功能按钮绑定对应游戏功能
+
+实现过程：
+  1. HTML 结构：在 #title-screen 内创建 .ts-background（模糊背景）、
+     .ts-petal-container（花瓣）、.ts-sparkle-container（星光）、
+     .ts-character（角色立绘）、.ts-panel-wrap > .ts-panel（菜单面板）、
+     .ts-copyright（版权信息）
+  2. CSS 样式：所有类前缀 ts- 避免冲突；使用 @keyframes 实现花瓣飘落、
+     星光闪烁、角色浮动 (tsFloat, 4s, 12px)、标题浮动 (tsTitleFloat, 4.5s, 6px)、
+     提示文字呼吸脉冲 (tsHintPulse, opacity 0.55-0.85)
+  3. 响应式断点：桌面 → 1100px → 800px → 500px
+  4. 指针事件：非交互层 pointer-events: none；可点击元素用 .ts-pointer 覆写
+  5. 提示文字："♪ 点击任意处开始播放背景音乐" 放在菜单按钮下方
+  6. 标题文字从 Zhi Mang Xing 改为 Noto Serif SC，增加字号、提高对比度
+
+【阶段二：菜单功能按钮绑定】
+
+目标：将所有标题画面菜单按钮关联到实际游戏功能。
+
+实现过程：
+  1. 开始新游戏 → startNewGame()：
+     - 隐藏标题画面（fadeOut 动画）
+     - 停止标题 BGM，播放游戏 BGM
+     - 调用 showStageIntro() 进入开场剧情
+  2. 继续游戏 → continueGame()：
+     - 读取 yz_autosave 从 localStorage
+     - 还原游戏状态，隐藏标题画面
+     - 设置场景 UI，自动调用 showStageIntro()（stage ≤ 5 时）
+  3. 读取存档 → openLoadFromTitle()：
+     - 淡出标题画面，打开已有的读取存档模态框
+     - 模态框关闭时恢复标题画面（除非已加载存档）
+  4. CG回想画廊 → openGalleryFromTitle()：
+     - 淡出标题画面，打开已有的画廊模态框
+     - 模态框关闭时恢复标题画面
+  5. 退出游戏 → quitGame()：
+     - confirm() 确认后调用 window.close()
+  6. 设定 → openSettings()：
+     - 打开设置模态框（覆盖标题画面，z-index 1000）
+
+【阶段三：设置模态框 (Settings Modal)】
+
+目标：实现完整的设置界面，实时调整游戏参数。
+
+UI 布局（#ts-settings）：
+  - 标题：粉色调（#5A3C3E）
+  - 三个模块：
+    (1) 文字速度 + 自动播放速度滑块
+    (2) BGM 音量 + SFX 音量 + Voice 音量滑块
+    (3) 亮度滑块
+  - "保存设置" 按钮
+  - 模块标题颜色 #7A5A5E，标签文字 #6A4A4E
+
+功能实现：
+  - 文字速度滑块：值 1-10 映射到 55-10ms（5=35ms 默认），存入 _textSpeed
+  - BGM 音量滑块：实时控制标题 BGM (tsBgmAudio) 和游戏 BGM (bgmAudio) 的音量
+  - SFX 音量滑块：实时控制点击音效 (clickAudio) 音量（默认 0.4）
+  - 亮度滑块：通过 filter: brightness(x%) 作用于 #main
+  - 实时生效：所有滑块使用 oninput 事件
+  - 保存/恢复：saveSettings() 持久化到 localStorage('yz_settings')；
+    loadSettings() 在 initGame() 和 openSettings() 时恢复
+  - 关闭方式：点击遮罩层 (backdrop) 或按 Escape 键
+  - 修复：toast z-index 从 300 提升至 1001（高于标题画面 999 和设置 1000）
+  - 闭包处理：closeModal(type) 中正确恢复标题画面
+
+【阶段四：BGM 与音频系统】
+
+目标：实现双 BGM 系统（标题画面 BGM 与游戏内 BGM）和音效控制。
+
+实现细节：
+  1. 双音频对象：
+     - tsBgmAudio = new Audio("It's a HORI style!.mp3") — 标题画面循环
+     - bgmAudio = new Audio("本日は晴天なり.mp3") — 游戏内循环
+     - clickAudio — 点击音效
+  2. 自动播放策略：
+     - _tsEnsureBgm() 在每次点击/触摸时无条件调用 play()
+     - 已在播放时调用 play() 是安全空操作
+     - 被自动播放策略阻止时，用户手势上下文可正常启动
+  3. BGM 切换：
+     - startNewGame() 中 playBgm() 在同步上下文中调用（不在 setTimeout 内）
+     - stopTsBgm() 停止标题 BGM，pause + currentTime = 0
+  4. 音量控制：
+     - 所有音频对象共享 _bgmVol（BGM 滑块值）
+     - 点击音效使用 _sfxVol（SFX 滑块值），默认 0.4
+     - 实时通过 oninput 调用 applyBgmVolume() / applySfxVolume()
+
+【阶段五：角色表情自动检测】
+
+目标：根据对话文本自动匹配角色表情（sprite expression）。
+
+实现逻辑：
+  - detectSpriteExp(text) 扫描对话文本中的关键词：
+    - 脸红|害羞|不好意思|尴尬|红到|耳尖 → '害羞'
+    - 扶眼镜|推眼镜 → '扶眼镜'
+  - 在没有显式设置 line.exp 时调用
+  - 在 advanceLine() 和 advanceBonusLine() 中都执行
+  - 显式 exp 优先级高于自动检测
+
+【阶段六：结局系统修复】
+
+目标：确保结局在多平台、页面刷新后保持一致。
+
+修复内容：
+  - autoSave() 现在包含 G.endings 数组
+  - continueGame() 合并 autosave 中的 endings + 单独持久化的 yz_game_endings
+  - initGame() 在页面加载时从 localStorage 加载 yz_game_endings
+  - showEnding() 将结局保存到 yz_game_endings
+
+【阶段七：标题画面视觉优化】
+
+目标：提升标题画面的视觉质感和层次感。
+
+优化项目：
+  1. 角色立绘浮动动画：tsFloat（4s 周期，12px 垂直位移）
+  2. 中文标题浮动动画：tsTitleFloat（4.5s，6px 垂直位移，更慢更轻柔）
+  3. 提示文字呼吸脉冲：tsHintPulse（opacity 0.55↔0.85）
+  4. 基础不透明度从 0.35 提升至 0.55
+  5. 中文标题 34px→44px，颜色 #FFF8F5→#3D2C2E
+  6. 日文副标题 14px→17px，颜色 rgba(...)→#7A5A5E
+  7. 菜单按钮 16px→20px，颜色 rgba(...)→#5A3C3E
+  8. 标题字体从 Zhi Mang Xing 改为 Noto Serif SC 保持一致
+  9. 中文标题恢复为两行（<br>），桌面 32px，响应式断点适配
+  10. 前景元素包裹在 .ts-foreground 中，
+      transform: translateX(10%) scale(1.39) 调整布局
+
+【阶段八：代码拆分】
+
+目标：从单一 HTML 文件拆分为三个独立文件，便于维护。
+
+拆分结果：
+  - index.html：HTML 骨架 + 外部资源引用
+  - style.css：全部样式（标题画面、游戏 UI、设置模态框、响应式断点）
+  - script.js：全部 JavaScript（游戏数据、状态管理、音频、渲染、存档、设置）
+
+功能保持一致，无任何功能丢失。
+
+【阶段九：Git 仓库与 GitHub 推送】
+
+目标：将项目推送到 GitHub 仓库。
+
+过程：
+  1. git init 初始化本地仓库
+  2. 创建 .gitignore（排除 dagang.txt、index - *.html、微信*.jpg）
+  3. git add -A + git commit
+  4. 配置 GitHub 远程仓库（HTTPS 被防火墙拦截）
+  5. 生成 SSH 密钥 (ed25519)，用户添加至 GitHub 账户
+  6. SSH 推送成功（master 分支）
+
+【阶段十：文档生成】
+
+目标：根据 docx 需求文档生成 README.md。
+
+输出：
+  - README.md：包含项目简介、剧情阶段、结局一览、玩法系统、技术架构、特性说明
+
+五、技术决策记录
+---------------
+
+1. 标题画面重新设计，未复用原有 50/50 分栏布局
+   理由：用户要求完全不同的视觉概念（圆形菜单面板 + 学校背景）
+
+2. 复用已有素材 初始立绘.png 作为标题画面右侧角色层（25% 透明度）
+   理由：无需额外资源，保持视觉丰富度
+
+3. initGame() 不再自动调用 showStageIntro()
+   理由：标题画面始终可见，由"开始新游戏"按钮触发后续流程
+
+4. 双 BGM 系统：tsBgmAudio 与 bgmAudio 独立
+   理由：标题画面与游戏内使用不同音乐文件
+
+5. 使用 class="hidden" 控制模态框显示
+   理由：与已有的游戏 UI 约定保持一致
+
+6. 使用 .ts- 前缀命名所有标题画面 CSS 类
+   理由：避免与现有游戏样式冲突
+
+7. 文字速度滑块（1-10）线性映射：55ms→10ms
+   理由：数值直观，5=35ms 为舒适默认值
+
+六、注意事项与已知信息
+---------------------
+
+1. 游戏通过 window.onload = initGame() 启动，按序调用：
+   loadSettings() → updateStats() → updateStageLabel() → renderGallery() → playTsBgm()
+
+2. 存档键名使用 yz_ 前缀：yz_autosave（自动存档）、yz_save_0~5（手动存档）、
+   yz_game_endings（结局记录）、yz_settings（设置）
+
+3. 使用 MP3 格式音频：标题 BGM "It's a HORI style!.mp3"，
+   游戏 BGM "本日は晴天なり.mp3"
+
+4. 亮度通过 filter: brightness() 作用于 #main，
+   仅影响游戏区域，不影响标题画面（标题在 #main 外部）
+
+5. 文字速度 _textSpeed 默认 35ms，范围 8ms~55ms
