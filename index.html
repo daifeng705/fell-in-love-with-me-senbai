@@ -224,6 +224,127 @@ body {
 .review-item { padding:10px 0; border-bottom:1px solid rgba(255,181,194,0.2); font-size:13px; color:var(--text-main); line-height:1.6; }
 .review-item .r-speaker { color:var(--deep-pink); font-weight:600; }
 
+/* Settings Modal - 日系粉色校园乙女风格 */
+.settings-box {
+  max-width:480px; position:relative; overflow:hidden;
+  background: linear-gradient(160deg, #FFF8FA 0%, #FFEFF3 30%, #FFF9FB 100%);
+  border:1.5px solid rgba(232,136,178,0.12);
+  box-shadow:
+    0 16px 60px rgba(232,136,178,0.12),
+    inset 0 0 80px rgba(255,214,224,0.06);
+}
+.settings-box::before {
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  border:1px solid rgba(255,255,255,0.5);
+  border-radius:28px; pointer-events:none; z-index:0;
+  box-shadow:inset 0 0 30px rgba(255,255,255,0.15);
+}
+.settings-box h2 {
+  font-family:'Noto Serif SC',serif; font-weight:600;
+  color:#D4608A; text-shadow:0 0 20px rgba(232,136,178,0.08);
+  letter-spacing:3px; position:relative; z-index:1;
+}
+.settings-inner {
+  position:relative; z-index:1; display:flex; flex-direction:column; gap:10px;
+}
+.settings-module {
+  background:rgba(255,249,251,0.5);
+  border-radius:16px; padding:14px 18px 16px;
+  border:1px solid rgba(255,214,224,0.15);
+  backdrop-filter:blur(4px);
+}
+.settings-module-title {
+  font-family:'Noto Serif SC',serif;
+  font-size:14px; font-weight:600; color:#C26582;
+  margin-bottom:12px; letter-spacing:2px;
+  text-shadow:0 0 12px rgba(232,136,178,0.06);
+}
+.settings-item { margin-bottom:10px; }
+.settings-item:last-child { margin-bottom:0; }
+.settings-label {
+  font-family:'Noto Serif SC',serif;
+  font-size:13px; color:#8A5A6A; display:block; margin-bottom:6px;
+  letter-spacing:1px; font-weight:400;
+}
+.settings-slider-row {
+  display:flex; align-items:center; gap:10px;
+}
+.settings-slider {
+  -webkit-appearance:none; appearance:none;
+  flex:1; height:6px; border-radius:6px;
+  background: linear-gradient(90deg, #FFD6E0, #E888B2);
+  outline:none; transition:opacity 0.2s;
+  position:relative;
+}
+.settings-slider::-webkit-slider-thumb {
+  -webkit-appearance:none; appearance:none;
+  width:18px; height:18px; border-radius:50%;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF, #FFD6E0);
+  border:2px solid rgba(232,136,178,0.25);
+  cursor:pointer; box-shadow:0 2px 8px rgba(232,136,178,0.15);
+  transition:all 0.2s;
+}
+.settings-slider::-webkit-slider-thumb:hover {
+  transform:scale(1.15);
+  box-shadow:0 3px 14px rgba(232,136,178,0.25);
+}
+.settings-slider::-moz-range-thumb {
+  width:18px; height:18px; border-radius:50%;
+  background: radial-gradient(circle at 35% 35%, #FFFFFF, #FFD6E0);
+  border:2px solid rgba(232,136,178,0.25);
+  cursor:pointer;
+}
+.settings-val {
+  font-family:'Noto Serif SC',serif;
+  font-size:14px; font-weight:600; color:#D4608A;
+  min-width:28px; text-align:center;
+  text-shadow:0 0 10px rgba(232,136,178,0.08);
+}
+.settings-btns {
+  display:flex; gap:12px; justify-content:center; margin-top:6px;
+  position:relative; z-index:1;
+}
+.settings-btn-primary, .settings-btn-secondary {
+  padding:12px 28px; border:none; border-radius:50px;
+  font-family:'Noto Sans SC',sans-serif;
+  font-size:14px; font-weight:600; cursor:pointer;
+  transition:all 0.3s cubic-bezier(.34,1.56,.64,1);
+  letter-spacing:2px;
+}
+.settings-btn-primary {
+  background: linear-gradient(135deg, #FFD6E0, #E888B2);
+  color:white; box-shadow:0 4px 20px rgba(232,136,178,0.2);
+}
+.settings-btn-primary:hover {
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 6px 30px rgba(232,136,178,0.3);
+}
+.settings-btn-secondary {
+  background:rgba(255,249,251,0.6);
+  color:#C26582; border:1.5px solid rgba(232,136,178,0.2);
+  backdrop-filter:blur(4px);
+}
+.settings-btn-secondary:hover {
+  transform:translateY(-2px) scale(1.03);
+  background:rgba(255,249,251,0.8);
+  border-color:rgba(232,136,178,0.35);
+}
+/* Settings sparkle decorations */
+.settings-sparkle {
+  position:absolute; font-size:12px; opacity:0;
+  animation:settingsSparkle 4s ease-in-out infinite;
+  pointer-events:none;
+}
+.settings-sparkle.ss1 { top:8px; left:12px; animation-delay:0s; }
+.settings-sparkle.ss2 { top:8px; right:12px; animation-delay:1s; }
+.settings-sparkle.ss3 { bottom:70px; left:12px; animation-delay:2s; }
+.settings-sparkle.ss4 { bottom:70px; right:12px; animation-delay:3s; }
+@keyframes settingsSparkle {
+  0%,100%{opacity:0; transform:scale(0.5) rotate(0deg)}
+  25%{opacity:0.35}
+  50%{opacity:0; transform:scale(1.4) rotate(180deg)}
+}
+
 /* Toast */
 .toast-overlay {
   position:fixed; top:0; left:0; right:0; bottom:0; z-index:300;
@@ -1387,6 +1508,7 @@ body {
   <button class="float-btn" onclick="openModal('load')" title="读档">📂</button>
   <button class="float-btn" onclick="openModal('review')" title="回顾">📜</button>
   <button class="float-btn" onclick="openModal('gallery')" title="图鉴">🖼️</button>
+  <button class="float-btn" onclick="openModal('settings')" title="设定">⚙️</button>
   <button class="float-btn" onclick="resetGame()" title="重开">🔄</button>
 </div>
 <button id="sound-toggle" onclick="toggleSound()" title="音效">🔊</button>
@@ -1414,6 +1536,75 @@ body {
   <h2>📜 回顾记录</h2>
   <div class="review-list" id="review-list"></div>
   <button class="modal-close" onclick="closeModal('review')">关闭</button>
+</div></div>
+
+<!-- Settings Modal -->
+<div class="modal-overlay" id="modal-settings"><div class="modal-box settings-box">
+  <h2>⚙️ 设定</h2>
+  <div class="settings-inner">
+    <!-- Module 1: Text -->
+    <div class="settings-module">
+      <h3 class="settings-module-title">📝 文本设置</h3>
+      <div class="settings-item">
+        <label class="settings-label">文字播放速度</label>
+        <div class="settings-slider-row">
+          <input type="range" class="settings-slider" id="slider-text-speed" min="1" max="10" value="5" oninput="applyTextSpeed()">
+          <span class="settings-val" id="val-text-speed">5</span>
+        </div>
+      </div>
+      <div class="settings-item">
+        <label class="settings-label">自动剧情速度</label>
+        <div class="settings-slider-row">
+          <input type="range" class="settings-slider" id="slider-auto-speed" min="1" max="10" value="5" oninput="applyAutoSpeed()">
+          <span class="settings-val" id="val-auto-speed">5</span>
+        </div>
+      </div>
+    </div>
+    <!-- Module 2: Volume -->
+    <div class="settings-module">
+      <h3 class="settings-module-title">🔊 音量设置</h3>
+      <div class="settings-item">
+        <label class="settings-label">BGM 音量</label>
+        <div class="settings-slider-row">
+          <input type="range" class="settings-slider" id="slider-bgm-vol" min="0" max="100" value="50" oninput="applyBgmVol()">
+          <span class="settings-val" id="val-bgm-vol">50</span>
+        </div>
+      </div>
+      <div class="settings-item">
+        <label class="settings-label">音效音量</label>
+        <div class="settings-slider-row">
+          <input type="range" class="settings-slider" id="slider-sfx-vol" min="0" max="100" value="50" oninput="applySfxVol()">
+          <span class="settings-val" id="val-sfx-vol">50</span>
+        </div>
+      </div>
+      <div class="settings-item">
+        <label class="settings-label">角色语音</label>
+        <div class="settings-slider-row">
+          <input type="range" class="settings-slider" id="slider-voice-vol" min="0" max="100" value="50" oninput="applyVoiceVol()">
+          <span class="settings-val" id="val-voice-vol">50</span>
+        </div>
+      </div>
+    </div>
+    <!-- Module 3: Display -->
+    <div class="settings-module">
+      <h3 class="settings-module-title">🖥️ 画面设置</h3>
+      <div class="settings-item">
+        <label class="settings-label">屏幕亮度</label>
+        <div class="settings-slider-row">
+          <input type="range" class="settings-slider" id="slider-brightness" min="30" max="150" value="100" oninput="applyBrightness()">
+          <span class="settings-val" id="val-brightness">100</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="settings-btns">
+    <button class="modal-close settings-btn-primary" onclick="saveSettings()">保存设置</button>
+    <button class="modal-close settings-btn-secondary" onclick="returnToTitle()">返回主菜单</button>
+  </div>
+  <span class="settings-sparkle ss1">✦</span>
+  <span class="settings-sparkle ss2">✧</span>
+  <span class="settings-sparkle ss3">✦</span>
+  <span class="settings-sparkle ss4">✧</span>
 </div></div>
 
 <!-- Toast -->
@@ -1657,6 +1848,13 @@ let audioCtx = null;
 let soundOn = true;
 let typingTimer = null;
 let bgmTimer = null;
+// Settings variables
+let textSpeed = 35;
+let autoSpeed = 3000;
+let bgmVol = 0.5;
+let sfxVol = 0.5;
+let voiceVol = 0.5;
+let brightness = 100;
 
 // ======================== AUDIO ========================
 function initAudio() {
@@ -1669,7 +1867,7 @@ function playClick() {
     const o = audioCtx.createOscillator(), g = audioCtx.createGain();
     o.connect(g); g.connect(audioCtx.destination);
     o.frequency.value = 880; o.type = 'sine';
-    g.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    g.gain.setValueAtTime(sfxVol * 0.3, audioCtx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
     o.start(); o.stop(audioCtx.currentTime + 0.08);
   } catch(e) {}
@@ -1688,7 +1886,7 @@ function playBgm() {
       o.connect(g); g.connect(audioCtx.destination);
       o.type = 'sine';
       o.frequency.value = notes[noteIdx % notes.length];
-      g.gain.setValueAtTime(0.04, audioCtx.currentTime);
+      g.gain.setValueAtTime(bgmVol * 0.08, audioCtx.currentTime);
       g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.0);
       o.start(); o.stop(audioCtx.currentTime + 1.0);
       bgmNodes.push(o);
@@ -1748,7 +1946,7 @@ function showText(who, text, callback) {
   cursor.style.display = 'inline-block';
   let idx = 0;
   if (typingTimer) clearInterval(typingTimer);
-  const speed = 35;
+  const speed = Math.max(8, Math.min(100, textSpeed));
   typingTimer = setInterval(() => {
     if (idx < text.length) {
       disp.textContent += text[idx];
@@ -2226,6 +2424,102 @@ function renderReview() {
   con.scrollTop = con.scrollHeight;
 }
 
+// ======================== SETTINGS ========================
+function applyTextSpeed() {
+  const s = parseInt(document.getElementById('slider-text-speed').value);
+  textSpeed = Math.max(8, 65 - s * 5.5);
+  document.getElementById('val-text-speed').textContent = s;
+}
+function applyAutoSpeed() {
+  const s = parseInt(document.getElementById('slider-auto-speed').value);
+  autoSpeed = 6000 - s * 500;
+  document.getElementById('val-auto-speed').textContent = s;
+}
+function applyBgmVol() {
+  const v = parseInt(document.getElementById('slider-bgm-vol').value);
+  bgmVol = v / 100;
+  document.getElementById('val-bgm-vol').textContent = v;
+}
+function applySfxVol() {
+  const v = parseInt(document.getElementById('slider-sfx-vol').value);
+  sfxVol = v / 100;
+  document.getElementById('val-sfx-vol').textContent = v;
+}
+function applyVoiceVol() {
+  const v = parseInt(document.getElementById('slider-voice-vol').value);
+  voiceVol = v / 100;
+  document.getElementById('val-voice-vol').textContent = v;
+}
+function applyBrightness() {
+  const v = parseInt(document.getElementById('slider-brightness').value);
+  brightness = v;
+  document.getElementById('val-brightness').textContent = v;
+  document.getElementById('main').style.filter = 'brightness(' + (v/100) + ')';
+}
+function saveSettings() {
+  playClick();
+  const data = {
+    textSpeed: parseInt(document.getElementById('slider-text-speed').value),
+    autoSpeed: parseInt(document.getElementById('slider-auto-speed').value),
+    bgmVol: parseInt(document.getElementById('slider-bgm-vol').value),
+    sfxVol: parseInt(document.getElementById('slider-sfx-vol').value),
+    voiceVol: parseInt(document.getElementById('slider-voice-vol').value),
+    brightness: parseInt(document.getElementById('slider-brightness').value)
+  };
+  try { localStorage.setItem('yz_settings', JSON.stringify(data)); } catch(e) {}
+  closeModal('settings');
+  showToast('💾', '设置已保存');
+}
+function loadSettings() {
+  try {
+    const data = JSON.parse(localStorage.getItem('yz_settings'));
+    if (!data) return;
+    document.getElementById('slider-text-speed').value = data.textSpeed || 5;
+    document.getElementById('slider-auto-speed').value = data.autoSpeed || 5;
+    document.getElementById('slider-bgm-vol').value = data.bgmVol || 50;
+    document.getElementById('slider-sfx-vol').value = data.sfxVol || 50;
+    document.getElementById('slider-voice-vol').value = data.voiceVol || 50;
+    document.getElementById('slider-brightness').value = data.brightness || 100;
+    applyTextSpeed(); applyAutoSpeed(); applyBgmVol();
+    applySfxVol(); applyVoiceVol(); applyBrightness();
+  } catch(e) {}
+}
+function returnToTitle() {
+  playClick();
+  closeModal('settings');
+  stopBgm();
+  // Reset game state
+  let savedEndings = {};
+  try { savedEndings = JSON.parse(localStorage.getItem('yz_game_endings') || '{}'); } catch(e) {}
+  G = {
+    stage:1, lineIdx:0, phase:'intro',
+    affection:0, knowledge:0, catCount:0,
+    tag:'', unlocked:{wechat:false,water:false,samehobby:false,hiddenclub:false,longletter:false,conflict:false,goodpath:false,mediumpath:false},
+    endings:{good:false,bad:false,medium:false,mystery:false},
+    history:[], skip:false, typing:false, stageStarted:false,
+  };
+  try { localStorage.setItem('yz_game_endings', JSON.stringify(savedEndings)); } catch(e) {}
+  document.getElementById('scene-area').innerHTML = `
+    <div id="bg-canvas" style="background-image:url('背景.png')"></div>
+    <div id="sprite-box"><img id="sprite-img" src="初始立绘.png" alt="椰子饭"></div>
+    <div id="text-box" onclick="textBoxClick()">
+      <div id="speaker-name"></div>
+      <div id="text-content"><span id="text-display"></span><span id="text-cursor"></span></div>
+      <div id="click-hint">▼ 点击继续</div>
+    </div>`;
+  document.getElementById('options-area').innerHTML = '<div id="options-container"></div><div id="cat-prompt-area" class="cat-prompt hidden"></div>';
+  document.getElementById('float-btns').style.display = 'flex';
+  updateStats();
+  updateStageLabel();
+  document.getElementById('sprite-box').style.display = 'flex';
+  document.getElementById('text-box').style.display = 'block';
+  // Show title screen
+  const ts = document.getElementById('title-screen');
+  ts.style.display = 'flex';
+  ts.style.opacity = '1';
+  ts.style.transform = 'scale(1)';
+}
+
 // ======================== MODALS ========================
 function openModal(type) {
   playClick();
@@ -2233,6 +2527,7 @@ function openModal(type) {
   if (type === 'load') renderLoadSlots();
   if (type === 'gallery') renderGallery();
   if (type === 'review') renderReview();
+  if (type === 'settings') loadSettings();
   document.getElementById('modal-' + type).classList.add('show');
 }
 function closeModal(type) {
@@ -2305,13 +2600,16 @@ function startTitleGame() {
 
 // ======================== INIT ========================
 function initGame() {
+  loadSettings();
   updateStats();
   updateStageLabel();
   renderGallery();
+  // Apply initial brightness
+  document.getElementById('main').style.filter = 'brightness(' + (brightness/100) + ')';
 }
 
 // Override closeModal clicks for overlay
-['save','load','gallery','review'].forEach(t => {
+['save','load','gallery','review','settings'].forEach(t => {
   document.getElementById('modal-'+t).addEventListener('click', function(e) {
     if (e.target === this) this.classList.remove('show');
   });
