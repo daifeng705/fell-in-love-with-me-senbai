@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>表面高冷实际傲娇的艺联领队想和我谈恋爱</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+QingKe+HuangYou&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+QingKe+HuangYou&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&family=Dancing+Script:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
 <style>
 :root {
   --pink: #FFB0C2;
@@ -341,13 +341,517 @@ body {
 }
 .hidden { display:none !important; }
 
-/* ======================== TITLE SCREEN ======================== */
+/* ======================== NEW START PAGE ========================
+   全新华丽文艺日系纯爱启动页 — 左立绘 + 右标题穿插构图
+   主色调：浅樱粉 #FFD6E0 / 薄荷青 #B8E0D2 / 奶白 #FFF9FB
+           淡薰衣草紫 #E8DFF5 / 浅米杏 #F5E6D3
+   ============================================================ */
+:root {
+  --ts-pink: #FFD6E0;
+  --ts-mint: #B8E0D2;
+  --ts-cream: #FFF9FB;
+  --ts-lavender: #E8DFF5;
+  --ts-apricot: #F5E6D3;
+  --ts-rose: #E888B2;
+  --ts-gold: #D4A080;
+  --ts-text: #5C4A4E;
+}
 #title-screen {
   position:fixed; top:0; left:0; right:0; bottom:0; z-index:999;
-  display:flex; cursor:pointer; overflow:hidden;
+  display:flex; overflow:hidden;
+  background: linear-gradient(160deg, #FFF9FB 0%, #FFD6E0 30%, #E8DFF5 60%, #B8E0D2 100%);
+  animation:tsFadeIn 0.8s ease;
+}
+@keyframes tsFadeIn { 0%{opacity:0} 100%{opacity:1} }
+
+/* ------ Global overlay layers ------ */
+.ts-bg-glow {
+  position:absolute; inset:0; pointer-events:none; z-index:0;
   background:
-    radial-gradient(ellipse at 25% 45%, #FFD6E2 0%, #FFC8D8 25%, #FFD9E4 45%, #FFE4EC 65%, #FFF0F4 100%);
-  animation:titleFadeIn 0.8s ease;
+    radial-gradient(ellipse at 30% 20%, rgba(255,214,224,0.25), transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(184,224,210,0.15), transparent 40%),
+    radial-gradient(ellipse at 50% 50%, rgba(232,223,245,0.12), transparent 60%);
+}
+.ts-texture {
+  position:absolute; inset:0; pointer-events:none; z-index:1;
+  opacity:0.04;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.3) 2px, rgba(255,255,255,0.3) 3px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.15) 2px, rgba(255,255,255,0.15) 3px);
+}
+.ts-gauze {
+  position:absolute; inset:0; pointer-events:none; z-index:2;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(255,249,251,0.4), transparent 45%),
+    radial-gradient(ellipse at 80% 60%, rgba(255,249,251,0.3), transparent 40%);
+}
+/* Vignette edges */
+.ts-vignette {
+  position:absolute; inset:0; pointer-events:none; z-index:3;
+  box-shadow:inset 0 0 120px 40px rgba(255,249,251,0.35);
+}
+
+/* ==================== LEFT: CHARACTER SIDE (50%) ==================== */
+.ts-left {
+  flex:0 0 50%; position:relative; overflow:hidden; z-index:4;
+  display:flex; align-items:center; justify-content:center;
+}
+.ts-left-bg {
+  position:absolute; inset:0;
+  background: linear-gradient(135deg, rgba(255,214,224,0.2), rgba(232,223,245,0.15));
+}
+/* Decorative elements behind character */
+.ts-left-deco {
+  position:absolute; inset:0; pointer-events:none; z-index:1;
+}
+.ts-left-deco .ld-sakura {
+  position:absolute; font-size:20px; opacity:0.12;
+  animation:ldSakura linear infinite;
+}
+.ts-left-deco .ld-sakura:nth-child(1) { top:5%; left:10%; font-size:28px; animation-duration:12s; animation-delay:0s; }
+.ts-left-deco .ld-sakura:nth-child(2) { top:15%; left:35%; font-size:18px; animation-duration:15s; animation-delay:3s; }
+.ts-left-deco .ld-sakura:nth-child(3) { top:40%; left:8%; font-size:24px; animation-duration:10s; animation-delay:5s; }
+.ts-left-deco .ld-sakura:nth-child(4) { top:60%; left:25%; font-size:16px; animation-duration:14s; animation-delay:2s; }
+.ts-left-deco .ld-sakura:nth-child(5) { top:78%; left:12%; font-size:22px; animation-duration:13s; animation-delay:7s; }
+.ts-left-deco .ld-sakura:nth-child(6) { top:88%; left:30%; font-size:15px; animation-duration:11s; animation-delay:4s; }
+@keyframes ldSakura {
+  0%{transform:translateY(-10vh) rotate(0deg); opacity:0}
+  10%{opacity:0.12}
+  90%{opacity:0.12}
+  100%{transform:translateY(110vh) rotate(360deg); opacity:0}
+}
+/* Wind chime decoration */
+.ts-wind-chime {
+  position:absolute; top:6%; left:12%; z-index:2; pointer-events:none;
+  font-size:32px; opacity:0.15; animation:chimeSwing 4s ease-in-out infinite;
+  transform-origin:top center;
+}
+@keyframes chimeSwing {
+  0%,100%{transform:rotate(-5deg)}
+  50%{transform:rotate(5deg)}
+}
+/* Character wrapper - spills into right side */
+.ts-char-wrap {
+  position:relative; z-index:3; width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  overflow:visible;
+}
+.ts-char-img {
+  height:95%; width:auto; max-height:98vh;
+  object-fit:contain; object-position:center right;
+  filter:drop-shadow(0 8px 60px rgba(232,136,178,0.2)) brightness(1.02) saturate(1.03);
+  animation:tsCharFloat 5s ease-in-out infinite;
+  /* Spill into right side by shifting right */
+  margin-right:-12%;
+}
+@keyframes tsCharFloat {
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+/* Soft glow around character edges */
+.ts-char-glow {
+  position:absolute; inset:0; z-index:2; pointer-events:none;
+  background:
+    radial-gradient(ellipse at 70% 50%, rgba(255,214,224,0.15), transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(184,224,210,0.08), transparent 40%);
+}
+/* Floating petals around character (overlap to right) */
+.ts-char-petals {
+  position:absolute; inset:0; z-index:5; pointer-events:none;
+  overflow:visible;
+}
+.ts-char-petals span {
+  position:absolute; font-size:16px; opacity:0;
+  animation:cpFloat 6s ease-in-out infinite;
+}
+.ts-char-petals span:nth-child(1) { top:20%; right:-5%; animation-delay:0s; }
+.ts-char-petals span:nth-child(2) { top:45%; right:-2%; animation-delay:1.5s; font-size:20px; }
+.ts-char-petals span:nth-child(3) { top:65%; right:-8%; animation-delay:3s; font-size:14px; }
+.ts-char-petals span:nth-child(4) { top:30%; right:-12%; animation-delay:0.8s; font-size:18px; }
+.ts-char-petals span:nth-child(5) { top:75%; right:-3%; animation-delay:2.5s; font-size:22px; }
+@keyframes cpFloat {
+  0%,100%{opacity:0; transform:translateY(10px) scale(0.8)}
+  25%{opacity:0.35}
+  50%{opacity:0.15; transform:translateY(-20px) scale(1.2)}
+  75%{opacity:0.25}
+}
+
+/* ==================== RIGHT: TITLE SIDE (50%) ==================== */
+.ts-right {
+  flex:0 0 50%; position:relative; z-index:4;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:40px 30px;
+  overflow:hidden;
+  background: linear-gradient(135deg, rgba(255,249,251,0.6), rgba(255,214,224,0.15));
+  backdrop-filter:blur(4px);
+}
+/* Right side decorative background */
+.ts-right-bg-deco {
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+}
+.ts-right-bg-deco::before {
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(255,214,224,0.08), transparent 45%),
+    radial-gradient(ellipse at 30% 70%, rgba(184,224,210,0.06), transparent 40%);
+}
+/* Lace border top */
+.ts-lace-top {
+  position:absolute; top:0; left:0; right:0; height:12px; z-index:2;
+  background: linear-gradient(90deg,
+    transparent 0%, rgba(232,136,178,0.15) 10%, rgba(232,136,178,0.25) 25%,
+    rgba(232,136,178,0.15) 40%, transparent 50%,
+    rgba(232,136,178,0.15) 60%, rgba(232,136,178,0.25) 75%,
+    rgba(232,136,178,0.15) 90%, transparent 100%);
+}
+.ts-lace-top::before {
+  content:'✦ ✦ ✦ ✦ ✦'; position:absolute; top:2px; left:50%; transform:translateX(-50%);
+  font-size:8px; letter-spacing:18px; color:rgba(232,136,178,0.15);
+  white-space:nowrap;
+}
+/* Pearl string decoration */
+.ts-pearls {
+  position:absolute; top:28px; left:10%; right:10%; height:4px; z-index:2; pointer-events:none;
+  background: linear-gradient(90deg,
+    transparent, rgba(212,160,128,0.08) 15%,
+    rgba(232,136,178,0.12) 30%, rgba(232,136,178,0.08) 45%,
+    transparent 55%, rgba(232,136,178,0.08) 65%,
+    rgba(232,136,178,0.12) 80%, rgba(212,160,128,0.08) 90%, transparent);
+}
+/* Lace border bottom */
+.ts-lace-bottom {
+  position:absolute; bottom:0; left:0; right:0; height:12px; z-index:2;
+  background: linear-gradient(90deg,
+    transparent 0%, rgba(232,136,178,0.15) 10%, rgba(232,136,178,0.25) 25%,
+    rgba(232,136,178,0.15) 40%, transparent 50%,
+    rgba(232,136,178,0.15) 60%, rgba(232,136,178,0.25) 75%,
+    rgba(232,136,178,0.15) 90%, transparent 100%);
+}
+.ts-lace-bottom::after {
+  content:'✦ ✦ ✦ ✦ ✦'; position:absolute; bottom:2px; left:50%; transform:translateX(-50%);
+  font-size:8px; letter-spacing:18px; color:rgba(232,136,178,0.15);
+  white-space:nowrap;
+}
+
+/* Corner flower decorations */
+.ts-corner-flower {
+  position:absolute; z-index:3; font-size:24px; opacity:0.15; pointer-events:none;
+}
+.ts-corner-flower.cf-tl { top:40px; left:24px; }
+.ts-corner-flower.cf-tr { top:40px; right:24px; }
+.ts-corner-flower.cf-bl { bottom:40px; left:24px; }
+.ts-corner-flower.cf-br { bottom:40px; right:24px; }
+
+/* ==================== TITLE BLOCK ==================== */
+.ts-title-section {
+  position:relative; z-index:5; text-align:center;
+  padding:20px 0; width:100%;
+  animation:tsTitleAppear 1.2s ease-out;
+}
+@keyframes tsTitleAppear {
+  0%{opacity:0; transform:translateY(30px)}
+  100%{opacity:1; transform:translateY(0)}
+}
+/* Decorative line above title */
+.ts-title-deco-top {
+  text-align:center; margin-bottom:12px; position:relative;
+}
+.ts-title-deco-top span {
+  font-size:14px; letter-spacing:14px; color:rgba(232,136,178,0.2);
+  font-family:'Dancing Script','Playfair Display',serif;
+  display:inline-block;
+}
+.ts-title-deco-top .deco-rose {
+  font-size:20px; opacity:0.18; animation:roseGlow 3s ease-in-out infinite;
+  display:inline-block; margin:0 4px;
+}
+@keyframes roseGlow {
+  0%,100%{opacity:0.18; transform:scale(1)}
+  50%{opacity:0.5; transform:scale(1.2)}
+}
+
+/* Line 1: 表面高冷实际傲娇的 */
+.ts-title-line1 {
+  font-family:'Ma Shan Zheng','Noto Serif SC',serif;
+  font-size:clamp(26px, 3vw, 44px);
+  color:#7A5A6A; font-weight:400;
+  letter-spacing:8px; line-height:1.4;
+  text-shadow:0 2px 16px rgba(232,136,178,0.08);
+  margin-bottom:6px;
+}
+
+/* MAIN TITLE: 艺联领队 — 超大华丽花体 */
+.ts-title-main-wrap {
+  position:relative; display:inline-block;
+  padding:8px 30px; margin:4px 0;
+}
+.ts-title-main-wrap::before {
+  content:'❀'; position:absolute; left:-8px; top:50%; transform:translateY(-50%);
+  font-size:22px; color:rgba(232,136,178,0.2);
+  animation:titleFlowerPulse 2.5s ease-in-out infinite;
+}
+.ts-title-main-wrap::after {
+  content:'❀'; position:absolute; right:-8px; top:50%; transform:translateY(-50%);
+  font-size:22px; color:rgba(232,136,178,0.2);
+  animation:titleFlowerPulse 2.5s ease-in-out infinite;
+  animation-delay:1.25s;
+}
+@keyframes titleFlowerPulse {
+  0%,100%{opacity:0.2; transform:translateY(-50%) scale(1) rotate(0deg)}
+  50%{opacity:0.6; transform:translateY(-50%) scale(1.4) rotate(15deg)}
+}
+.ts-title-main {
+  font-family:'Ma Shan Zheng','Noto Serif SC',serif;
+  font-size:clamp(56px, 8vw, 130px);
+  font-weight:700;
+  line-height:1.15; letter-spacing:16px;
+  background: linear-gradient(135deg,
+    #D4608A 0%, #E888B2 20%,
+    #F5C6D0 40%, #E888B2 60%,
+    #D4608A 80%, #C24E78 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+  filter:drop-shadow(0 4px 30px rgba(232,136,178,0.35))
+         drop-shadow(0 1px 2px rgba(196,80,120,0.2));
+  animation:titleGlow 4s ease-in-out infinite;
+  position:relative;
+}
+@keyframes titleGlow {
+  0%,100%{filter:drop-shadow(0 4px 30px rgba(232,136,178,0.35)) drop-shadow(0 1px 2px rgba(196,80,120,0.2))}
+  50%{filter:drop-shadow(0 4px 50px rgba(232,136,178,0.55)) drop-shadow(0 1px 4px rgba(196,80,120,0.3))}
+}
+/* Embossed border effect for main title */
+.ts-title-main::before {
+  content:'艺联领队'; position:absolute; top:0; left:0; right:0; bottom:0;
+  font-family:'Ma Shan Zheng','Noto Serif SC',serif;
+  font-size:clamp(56px, 8vw, 130px);
+  font-weight:700; letter-spacing:16px;
+  -webkit-text-fill-color:transparent;
+  text-shadow:
+    0 0 30px rgba(232,136,178,0.08),
+    0 0 60px rgba(232,136,178,0.04);
+  z-index:-1;
+}
+/* Decorative characters floating around main title */
+.ts-title-deco-chars {
+  position:absolute; inset:-30px; pointer-events:none; z-index:0;
+}
+.ts-title-deco-chars span {
+  position:absolute; font-size:16px; opacity:0;
+  animation:decoCharFloat 4s ease-in-out infinite;
+}
+.ts-title-deco-chars span:nth-child(1) { top:-10%; left:5%; content:'🌸'; animation-delay:0s; }
+.ts-title-deco-chars span:nth-child(2) { top:-15%; right:8%; animation-delay:1s; }
+.ts-title-deco-chars span:nth-child(3) { bottom:-10%; left:3%; animation-delay:2s; }
+.ts-title-deco-chars span:nth-child(4) { bottom:-12%; right:5%; animation-delay:3s; }
+@keyframes decoCharFloat {
+  0%,100%{opacity:0; transform:translateY(0) scale(0.8)}
+  25%{opacity:0.3}
+  50%{opacity:0; transform:translateY(-20px) scale(1.3)}
+}
+
+/* Line 3: 想和我谈恋爱 */
+.ts-title-line2 {
+  font-family:'Ma Shan Zheng','Noto Serif SC',serif;
+  font-size:clamp(24px, 2.8vw, 40px);
+  color:#8A5A6A; font-weight:400;
+  letter-spacing:10px; line-height:1.4;
+  text-shadow:0 2px 16px rgba(232,136,178,0.08);
+  margin-top:4px;
+}
+
+/* Decorative line below title */
+.ts-title-deco-bottom {
+  text-align:center; margin-top:14px; position:relative;
+}
+.ts-title-deco-bottom span {
+  font-size:12px; letter-spacing:10px; color:rgba(232,136,178,0.15);
+  font-family:'Dancing Script','Playfair Display',serif;
+}
+
+/* Ribbon decorations */
+.ts-ribbon-left, .ts-ribbon-right {
+  position:absolute; top:50%; z-index:4; pointer-events:none;
+  width:60px; height:16px; opacity:0.12;
+  background: linear-gradient(90deg, transparent, #E888B2, transparent);
+  border-radius:8px;
+}
+.ts-ribbon-left { left:10px; transform:translateY(-50%) rotate(-10deg); }
+.ts-ribbon-right { right:10px; transform:translateY(-50%) rotate(10deg); }
+
+/* ==================== VINE & FLOWER DECORATIONS ==================== */
+.ts-vines {
+  position:absolute; inset:0; pointer-events:none; z-index:3;
+}
+.ts-vines .vine {
+  position:absolute; font-size:18px; opacity:0.08; color:#8AB8A0;
+}
+.ts-vines .vine:nth-child(1) { top:15%; left:8%; font-size:22px; transform:rotate(-30deg); }
+.ts-vines .vine:nth-child(2) { top:25%; right:5%; font-size:16px; transform:rotate(45deg); }
+.ts-vines .vine:nth-child(3) { bottom:30%; left:5%; font-size:20px; transform:rotate(-15deg); }
+.ts-vines .vine:nth-child(4) { bottom:15%; right:8%; font-size:18px; transform:rotate(60deg); }
+.ts-vines .vine:nth-child(5) { top:50%; left:3%; font-size:14px; transform:rotate(-45deg); }
+
+/* Flower bouquet */
+.ts-bouquet {
+  position:absolute; bottom:60px; left:50%; transform:translateX(-50%); z-index:2;
+  font-size:28px; opacity:0.06; letter-spacing:8px;
+  pointer-events:none; white-space:nowrap;
+}
+
+/* ==================== SPARKLE PARTICLES ==================== */
+.ts-sparkles {
+  position:absolute; inset:0; pointer-events:none; z-index:6;
+}
+.ts-sparkles span {
+  position:absolute; font-size:12px; opacity:0;
+  animation:sparkleAnim 5s ease-in-out infinite;
+}
+.ts-sparkles span:nth-child(1) { top:8%; left:15%; animation-delay:0s; font-size:14px; }
+.ts-sparkles span:nth-child(2) { top:22%; right:10%; animation-delay:0.8s; font-size:10px; }
+.ts-sparkles span:nth-child(3) { top:40%; left:8%; animation-delay:1.6s; font-size:16px; }
+.ts-sparkles span:nth-child(4) { top:55%; right:15%; animation-delay:2.4s; font-size:12px; }
+.ts-sparkles span:nth-child(5) { top:72%; left:12%; animation-delay:3.2s; font-size:14px; }
+.ts-sparkles span:nth-child(6) { top:85%; right:8%; animation-delay:4s; font-size:11px; }
+.ts-sparkles span:nth-child(7) { top:12%; right:25%; animation-delay:1.2s; font-size:13px; }
+.ts-sparkles span:nth-child(8) { top:68%; right:25%; animation-delay:2.8s; font-size:15px; }
+.ts-sparkles span:nth-child(9) { top:35%; left:20%; animation-delay:3.6s; font-size:10px; }
+@keyframes sparkleAnim {
+  0%,100%{opacity:0; transform:scale(0.5) rotate(0deg)}
+  15%{opacity:0.5}
+  30%{opacity:0; transform:scale(1.5) rotate(180deg)}
+}
+
+/* ==================== FLOATING PETALS (full screen) ==================== */
+.ts-petal-rain {
+  position:absolute; inset:0; pointer-events:none; z-index:7;
+  overflow:hidden;
+}
+.ts-petal-rain span {
+  position:absolute; font-size:18px; opacity:0.08;
+  animation:petalRain linear infinite;
+}
+.ts-petal-rain span:nth-child(1) { left:5%; animation-duration:14s; animation-delay:0s; font-size:22px; }
+.ts-petal-rain span:nth-child(2) { left:18%; animation-duration:11s; animation-delay:3s; font-size:16px; }
+.ts-petal-rain span:nth-child(3) { left:32%; animation-duration:16s; animation-delay:5s; font-size:20px; }
+.ts-petal-rain span:nth-child(4) { left:48%; animation-duration:13s; animation-delay:2s; font-size:14px; }
+.ts-petal-rain span:nth-child(5) { left:62%; animation-duration:15s; animation-delay:7s; font-size:18px; }
+.ts-petal-rain span:nth-child(6) { left:78%; animation-duration:12s; animation-delay:4s; font-size:24px; }
+.ts-petal-rain span:nth-child(7) { left:90%; animation-duration:17s; animation-delay:6s; font-size:16px; }
+@keyframes petalRain {
+  0%{transform:translateY(-5vh) rotate(0deg); opacity:0.04}
+  10%{opacity:0.12}
+  90%{opacity:0.08}
+  100%{transform:translateY(105vh) rotate(720deg); opacity:0}
+}
+
+/* ==================== START BUTTON ==================== */
+.ts-start-btn {
+  position:relative; z-index:10; margin-top:20px;
+  padding:14px 44px; border:1.5px solid rgba(232,136,178,0.3);
+  border-radius:50px;
+  background:rgba(255,249,251,0.55);
+  backdrop-filter:blur(8px);
+  color:#7A5A6A; font-size:16px; font-weight:500;
+  font-family:'Noto Sans SC','PingFang SC',sans-serif;
+  letter-spacing:4px; cursor:pointer;
+  transition:all 0.4s cubic-bezier(.34,1.56,.64,1);
+  box-shadow:
+    0 4px 24px rgba(232,136,178,0.08),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  overflow:hidden;
+}
+.ts-start-btn::before {
+  content:''; position:absolute; top:-2px; left:-2px; right:-2px; bottom:-2px;
+  border-radius:52px;
+  background:linear-gradient(135deg,
+    rgba(255,214,224,0.15), rgba(184,224,210,0.1),
+    rgba(232,223,245,0.15), rgba(255,214,224,0.1));
+  z-index:-1;
+  opacity:0; transition:opacity 0.4s;
+}
+.ts-start-btn:hover {
+  transform:scale(1.06);
+  background:rgba(255,214,224,0.25);
+  border-color:rgba(232,136,178,0.5);
+  box-shadow:
+    0 8px 40px rgba(232,136,178,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+}
+.ts-start-btn:hover::before { opacity:1; }
+.ts-start-btn:active { transform:scale(0.96); }
+/* Click sparkle effect */
+.ts-start-btn .btn-sparkle {
+  position:absolute; pointer-events:none; font-size:10px; opacity:0;
+}
+.ts-start-btn:hover .btn-sparkle {
+  animation:btnSpark 0.8s ease-out forwards;
+}
+.ts-start-btn .btn-sparkle:nth-child(1) { top:-6px; left:20%; animation-delay:0s; }
+.ts-start-btn .btn-sparkle:nth-child(2) { top:-8px; right:25%; animation-delay:0.15s; }
+.ts-start-btn .btn-sparkle:nth-child(3) { bottom:-6px; left:35%; animation-delay:0.3s; }
+.ts-start-btn .btn-sparkle:nth-child(4) { bottom:-8px; right:30%; animation-delay:0.45s; }
+@keyframes btnSpark {
+  0%{opacity:0; transform:scale(0.5) translateY(0)}
+  30%{opacity:0.7}
+  100%{opacity:0; transform:scale(1.5) translateY(-10px)}
+}
+/* Sparkle burst on hover (JS-free) */
+.ts-start-btn:hover .btn-sparkle-burst {
+  opacity:1 !important;
+}
+
+/* Copyright/credit line */
+.ts-credit {
+  position:absolute; bottom:18px; left:50%; transform:translateX(-50%); z-index:5;
+  font-size:11px; color:rgba(90,74,78,0.2);
+  font-family:'Noto Sans SC',sans-serif;
+  letter-spacing:2px; pointer-events:none;
+  white-space:nowrap;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media(max-width:900px) {
+  #title-screen { flex-direction:column; }
+  .ts-left { flex:0 0 45%; }
+  .ts-char-img { height:85%; margin-right:0; }
+  .ts-title-main { font-size:clamp(48px, 10vw, 80px); letter-spacing:10px; }
+  .ts-title-main::before { font-size:clamp(48px, 10vw, 80px); letter-spacing:10px; }
+  .ts-title-line1 { font-size:clamp(20px, 3.5vw, 30px); }
+  .ts-title-line2 { font-size:clamp(18px, 3vw, 28px); }
+  .ts-corner-flower { display:none; }
+  .ts-ribbon-left, .ts-ribbon-right { display:none; }
+}
+@media(max-width:600px) {
+  .ts-left { flex:0 0 38%; }
+  .ts-char-img { height:75%; }
+  .ts-title-main { font-size:clamp(36px, 8vw, 56px); letter-spacing:6px; }
+  .ts-title-main::before { font-size:clamp(36px, 8vw, 56px); letter-spacing:6px; }
+  .ts-title-line1 { font-size:clamp(16px, 3vw, 22px); letter-spacing:4px; }
+  .ts-title-line2 { font-size:clamp(14px, 2.8vw, 20px); letter-spacing:5px; }
+  .ts-title-deco-top span { font-size:10px; letter-spacing:8px; }
+  .ts-title-deco-bottom span { font-size:10px; letter-spacing:6px; }
+  .ts-start-btn { padding:12px 32px; font-size:14px; }
+  .ts-lace-top, .ts-lace-bottom { height:8px; }
+  .ts-lace-top::before, .ts-lace-bottom::after { font-size:6px; letter-spacing:10px; }
+  .ts-pearls { top:20px; }
+  .ts-wind-chime { font-size:22px; }
+  .ts-bouquet { font-size:20px; bottom:40px; }
+}
+@media(max-width:480px) {
+  .ts-left { flex:0 0 32%; }
+  .ts-char-img { height:65%; }
+  .ts-right { padding:20px 14px; }
+  .ts-title-main { font-size:clamp(28px, 7vw, 42px); letter-spacing:4px; }
+  .ts-title-main::before { font-size:clamp(28px, 7vw, 42px); letter-spacing:4px; }
+  .ts-title-main-wrap::before, .ts-title-main-wrap::after { font-size:16px; }
+  .ts-title-line1 { font-size:clamp(14px, 2.5vw, 18px); letter-spacing:3px; }
+  .ts-title-line2 { font-size:clamp(12px, 2.2vw, 16px); letter-spacing:3px; }
+  .ts-start-btn { padding:10px 24px; font-size:12px; letter-spacing:2px; }
+  .ts-credit { font-size:9px; }
+  .ts-petal-rain span { font-size:14px; }
+  .ts-vines .vine { display:none; }
+}
 }
 #title-screen::before {
   content:''; position:absolute; top:0; left:0; right:0; bottom:0;
@@ -701,67 +1205,124 @@ body {
 </style>
 </head>
 <body>
-<!-- Title Screen -->
-<div id="title-screen" onclick="startTitleGame()">
-  <div class="title-sakura-layer">
-    <span class="title-sakura">🌸</span>
-    <span class="title-sakura">🌸</span>
-    <span class="title-sakura">🌸</span>
-    <span class="title-sakura">🌸</span>
-    <span class="title-sakura">🌸</span>
-    <span class="title-sakura">🌸</span>
-    <span class="title-sakura">🌸</span>
-    <span class="title-sakura">🌸</span>
-  </div>
-  <div class="title-left">
-    <div class="title-sprite-wrap">
-      <img src="初始立绘.png" alt="椰子饭" class="title-sprite">
+<!-- ================== NEW START PAGE (日系纯爱文艺华丽版) ================== -->
+<div id="title-screen">
+  <!-- Ambient glow & texture layers -->
+  <div class="ts-bg-glow"></div>
+  <div class="ts-texture"></div>
+  <div class="ts-gauze"></div>
+  <div class="ts-vignette"></div>
+
+  <!-- ========= LEFT: CHARACTER SIDE ========= -->
+  <div class="ts-left">
+    <div class="ts-left-bg"></div>
+    <div class="ts-left-deco">
+      <span class="ld-sakura">🌸</span>
+      <span class="ld-sakura">🌸</span>
+      <span class="ld-sakura">🌸</span>
+      <span class="ld-sakura">🌸</span>
+      <span class="ld-sakura">🌸</span>
+      <span class="ld-sakura">🌸</span>
     </div>
-    <div class="title-left-glow"></div>
-  </div>
-  <div class="title-right">
-    <div class="title-corner tl"></div>
-    <div class="title-corner tr"></div>
-    <div class="title-corner bl"></div>
-    <div class="title-corner br"></div>
-    <div class="title-ribbon-top"></div>
-    <div class="title-ribbon-top-2"></div>
-    <div class="title-ribbon-bottom-2"></div>
-    <div class="title-ribbon-bottom"></div>
-    <div class="title-inner-frame"></div>
-    <div class="title-sparkle">✦</div>
-    <div class="title-sparkle">✧</div>
-    <div class="title-sparkle">✦</div>
-    <div class="title-sparkle">✧</div>
-    <div class="title-sparkle">✦</div>
-    <div class="title-sparkle">✧</div>
-    <div class="title-sparkle">✦</div>
-    <div class="title-sparkle">✧</div>
-    <div class="title-sparkle">✦</div>
-    <div class="title-hearts-row">
-      <span>♡</span><span>♥</span><span>✿</span><span>♡</span><span>♥</span><span>✿</span><span>♡</span><span>♥</span><span>✿</span>
+    <div class="ts-wind-chime">🎐</div>
+    <div class="ts-char-glow"></div>
+    <div class="ts-char-wrap">
+      <img src="初始立绘.png" alt="椰子饭" class="ts-char-img">
     </div>
-    <div class="title-deco-line">─ ✦ ─ ✦ ─ ✦ ─</div>
-    <div class="title-deco-line-sub">✧ ✿ ✧ ✿ ✧ ✿ ✧</div>
-    <div class="title-game-name">
-      <div class="title-line-sub">表面高冷实际傲娇的</div>
-      <div class="title-line-main">艺联领队</div>
-      <div class="title-line-sub2">想和我谈恋爱</div>
-    </div>
-    <div class="title-deco-line-sub">✧ ✿ ✧ ✿ ✧ ✿ ✧</div>
-    <div class="title-deco-line">─ ✦ ─ ✦ ─ ✦ ─</div>
-    <div class="title-hearts-row">
-      <span>✿</span><span>♡</span><span>♥</span><span>✿</span><span>♡</span><span>♥</span><span>✿</span><span>♡</span><span>♥</span>
-    </div>
-    <div class="title-hearts-row">
-      <span>♥</span><span>✿</span><span>♡</span><span>♥</span><span>✿</span><span>♡</span><span>♥</span><span>✿</span><span>♡</span>
-    </div>
-    <div class="title-tagline">— 点击任意处开始游戏 —</div>
-    <div class="title-sub-info">✦ 献给每一个勇敢追光的你 ✦</div>
-    <div class="title-petals">
-      <span>🌸</span><span>✨</span><span>🌸</span><span>✨</span><span>🌸</span><span>✨</span><span>🌸</span>
+    <!-- Petals overlapping into right side -->
+    <div class="ts-char-petals">
+      <span>🌸</span><span>✨</span><span>🌸</span>
+      <span>✨</span><span>🌸</span>
     </div>
   </div>
+
+  <!-- ========= RIGHT: TITLE SIDE ========= -->
+  <div class="ts-right">
+    <div class="ts-right-bg-deco"></div>
+
+    <!-- Lace borders -->
+    <div class="ts-lace-top"></div>
+    <div class="ts-lace-bottom"></div>
+    <div class="ts-pearls"></div>
+
+    <!-- Corner flowers -->
+    <span class="ts-corner-flower cf-tl">🌸</span>
+    <span class="ts-corner-flower cf-tr">🌷</span>
+    <span class="ts-corner-flower cf-bl">🌷</span>
+    <span class="ts-corner-flower cf-br">🌸</span>
+
+    <!-- Ribbon sides -->
+    <div class="ts-ribbon-left"></div>
+    <div class="ts-ribbon-right"></div>
+
+    <!-- Vine decorations -->
+    <div class="ts-vines">
+      <span class="vine">🌿</span>
+      <span class="vine">🌱</span>
+      <span class="vine">🌿</span>
+      <span class="vine">🌱</span>
+      <span class="vine">🌿</span>
+    </div>
+
+    <!-- TITLE BLOCK -->
+    <div class="ts-title-section">
+
+      <!-- Decorative top -->
+      <div class="ts-title-deco-top">
+        <span class="deco-rose">🌹</span>
+        <span>✦ &nbsp; ✦ &nbsp; ✦</span>
+        <span class="deco-rose">🌹</span>
+      </div>
+
+      <!-- Line 1 -->
+      <div class="ts-title-line1">表面高冷实际傲娇的</div>
+
+      <!-- MAIN TITLE with floating decoration -->
+      <div class="ts-title-main-wrap">
+        <div class="ts-title-deco-chars">
+          <span>🌸</span><span>✨</span><span>🌸</span><span>✨</span>
+        </div>
+        <div class="ts-title-main">艺联领队</div>
+      </div>
+
+      <!-- Line 3 -->
+      <div class="ts-title-line2">想和我谈恋爱</div>
+
+      <!-- Decorative bottom -->
+      <div class="ts-title-deco-bottom">
+        <span>— ✿ ɢᴀᴍᴇ ʙᴇɢɪɴ ✿ —</span>
+      </div>
+
+    </div>
+
+    <!-- START BUTTON (only interaction) -->
+    <button class="ts-start-btn" onclick="startTitleGame()">
+      <span class="btn-sparkle">✦</span>
+      <span class="btn-sparkle">✧</span>
+      <span class="btn-sparkle">✦</span>
+      <span class="btn-sparkle">✧</span>
+      开始故事
+    </button>
+
+    <!-- Flower bouquet decoration at bottom -->
+    <div class="ts-bouquet">🌷 ✿ 🌸 ✿ 🌷</div>
+  </div>
+
+  <!-- ========= GLOBAL FLOATING DECORATIONS ========= -->
+  <!-- Petal rain (full screen) -->
+  <div class="ts-petal-rain">
+    <span>🌸</span><span>🌸</span><span>🌸</span>
+    <span>🌸</span><span>🌸</span><span>🌸</span>
+    <span>🌸</span>
+  </div>
+  <!-- Sparkle particles (full screen) -->
+  <div class="ts-sparkles">
+    <span>✦</span><span>✧</span><span>✦</span>
+    <span>✧</span><span>✦</span><span>✧</span>
+    <span>✦</span><span>✧</span><span>✦</span>
+  </div>
+
+  <div class="ts-credit">🎀 献给每一个勇敢追光的你</div>
 </div>
 
 <!-- Navbar -->
